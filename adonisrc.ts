@@ -59,7 +59,7 @@ export default defineConfig({
     () => import('@adonisjs/inertia/inertia_provider'),
     () => import('@adonisjs/auth/auth_provider'),
     () => import('#providers/api_provider'),
-    () => import('@thisismissem/adonisjs-atproto-oauth/provider')
+    () => import('@thisismissem/adonisjs-atproto-oauth/provider'),
   ],
 
   /*
@@ -75,6 +75,7 @@ export default defineConfig({
     () => import('#start/routes'),
     () => import('#start/kernel'),
     () => import('#start/validator'),
+    () => import('#start/logging'),
   ],
 
   /*

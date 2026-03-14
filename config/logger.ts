@@ -34,7 +34,10 @@ const loggerConfig = defineConfig({
        * Configure where logs are written.
        */
       transport: {
-        targets: [targets.file({ destination: 1 })],
+        targets: targets()
+          .pushIf(!app.inProduction, targets.pretty())
+          .pushIf(app.inProduction, targets.file({ destination: 1 }))
+          .toArray(),
       },
     },
   },
