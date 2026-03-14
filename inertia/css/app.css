@@ -6,3 +6,15 @@
   background: var(--color-slate-900);
 }
 
+#logo {
+  display: block;
+  height: 88px;
+  width: 150px;
+  background-image: url('../images/logo-light.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.dark #logo {
+  background-image: url('../images/logo-dark.png');
+}
