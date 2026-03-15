@@ -1,6 +1,5 @@
 import { Container } from '~/lib/container'
 import { Button } from '~/lib/button'
-import { Form } from '@adonisjs/inertia/react'
 import { LockClosedIcon } from '@heroicons/react/24/solid'
 
 export function Hero() {

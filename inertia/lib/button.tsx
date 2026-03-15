@@ -159,7 +159,7 @@ const styles = {
   },
 }
 
-type ButtonType = 'button' | 'submit' | 'reset'
+export type ButtonType = 'button' | 'submit' | 'reset'
 
 type ButtonProps = (
   | {

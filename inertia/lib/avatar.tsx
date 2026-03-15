@@ -1,8 +1,9 @@
 import * as Headless from '@headlessui/react'
 import clsx from 'clsx'
 import React, { forwardRef } from 'react'
-import { TouchTarget } from './button'
+import { ButtonType, TouchTarget } from './button'
 import { Link } from './link'
+import { LinkProps } from '@adonisjs/inertia/react'
 
 type AvatarProps = {
   src?: string | null
@@ -66,11 +67,12 @@ export const AvatarButton = forwardRef(function AvatarButton(
     initials,
     alt,
     className,
+    type,
     ...props
   }: AvatarProps &
     (
-      | ({ href?: never } & Omit<Headless.ButtonProps, 'as' | 'className'>)
-      | ({ href: string } & Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>)
+      | ({ href?: never; route?: never } & Omit<Headless.ButtonProps, 'as' | 'className'>)
+      | (LinkProps & Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>)
     ),
   ref: React.ForwardedRef<HTMLButtonElement>
 ) {
@@ -80,14 +82,16 @@ export const AvatarButton = forwardRef(function AvatarButton(
     'relative inline-grid focus:not-data-focus:outline-hidden data-focus:outline-2 data-focus:outline-offset-2 data-focus:outline-blue-500'
   )
 
-  return typeof props.href === 'string' ? (
+  let buttonType = (type as ButtonType) ?? ('button' as ButtonType)
+
+  return typeof props.href === 'string' || typeof props.route === 'string' ? (
     <Link {...props} className={classes} ref={ref as React.ForwardedRef<HTMLAnchorElement>}>
       <TouchTarget>
         <Avatar src={src} square={square} initials={initials} alt={alt} />
       </TouchTarget>
     </Link>
   ) : (
-    <Headless.Button {...props} className={classes} ref={ref}>
+    <Headless.Button {...props} type={buttonType} className={classes} ref={ref}>
       <TouchTarget>
         <Avatar src={src} square={square} initials={initials} alt={alt} />
       </TouchTarget>

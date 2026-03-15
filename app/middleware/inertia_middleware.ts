@@ -1,10 +1,11 @@
-import { Profile } from '#extensions/atprotouser'
-import ProfileTransformer from '#transformers/profile_transformer'
+import type { InferSharedProps } from '@adonisjs/inertia/types'
 import type { HttpContext } from '@adonisjs/core/http'
-import logger from '@adonisjs/core/services/logger'
 import type { NextFn } from '@adonisjs/core/types/http'
 import BaseInertiaMiddleware from '@adonisjs/inertia/inertia_middleware'
-import { InferSharedProps } from '@adonisjs/inertia/types'
+import logger from '@adonisjs/core/services/logger'
+import ProfileTransformer from '#transformers/profile_transformer'
+import type { Profile } from '#extensions/atprotouser'
+import '@inertiajs/core'
 
 export default class InertiaMiddleware extends BaseInertiaMiddleware {
   async share(ctx: HttpContext) {
