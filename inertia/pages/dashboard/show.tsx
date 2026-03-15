@@ -16,7 +16,7 @@ export default function Dashboard({}: InertiaProps<{}>) {
             <Avatar className="size-20 self-center" src={user.avatar} />
             <div className="flex flex-col">
               <Heading level={2}>{user.displayName ?? user.handle}</Heading>
-              <Text className="text-slate-400!">{user.handle}</Text>
+              <Text className="text-slate-400!">@{user.handle}</Text>
               <dl className="grid grid-cols-1 sm:grid-cols-3">
                 <div className="pr-4 py-2 sm:col-span-1 flex flex-col-reverse">
                   <StatHeading>Posts</StatHeading>
@@ -61,7 +61,7 @@ export default function Dashboard({}: InertiaProps<{}>) {
 }
 
 function StatHeading({ children }: React.ComponentPropsWithoutRef<'dt'>) {
-  return <dt className="text-sm/6 font-medium text-slate-700 dark:text-slate-400">{children}</dt>
+  return <dt className="text-sm/6 font-medium text-slate-500 dark:text-slate-400">{children}</dt>
 }
 
 function StatValue({ children }: React.ComponentPropsWithoutRef<'dd'>) {
