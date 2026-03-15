@@ -17,7 +17,9 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc --noEmit && tsc --noEmit --project inertia/tsconfig.json"
+    "typecheck": "tsc --noEmit && tsc --noEmit --project inertia/tsconfig.json",
+    "lex": "./node_modules/.bin/lex",
+    "lex:build": "pnpm lex build --clear --indexFile --out ./app/lexicons"
   },
   "imports": {
     "#controllers/*": "./app/controllers/*.js",
@@ -26,7 +28,9 @@
     "#mails/*": "./app/mails/*.js",
     "#services/*": "./app/services/*.js",
     "#listeners/*": "./app/listeners/*.js",
+    "#lexicons": "./app/lexicons/index.js",
     "#events/*": "./app/events/*.js",
+    "#extensions/*": "./app/extensions/*.js",
     "#generated/*": "./.adonisjs/server/*.js",
     "#middleware/*": "./app/middleware/*.js",
     "#transformers/*": "./app/transformers/*.js",
