@@ -17,14 +17,14 @@ RUN \
   corepack prepare --activate;
 
 FROM base-deps AS production-deps
-RUN pnpm install --frozen-lockfile --prod
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prod
 
 # ----------------------------
 # Stage 2: Build the application
 # ----------------------------
 FROM base-deps AS build
 WORKDIR /app
-RUN pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . .
 RUN node ace build
 
