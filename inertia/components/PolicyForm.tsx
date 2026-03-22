@@ -81,7 +81,7 @@ export function PolicyForm({ route, terms, privacyPolicy }: PolicyFormProps<Rout
             <Button
               type="submit"
               color={!form.data.terms || processing ? 'zinc' : 'amber'}
-              className="mt-2"
+              className="mt-2 py-3! disabled:cursor-default"
               disabled={!form.data.terms || processing}
             >
               Continue &rarr;

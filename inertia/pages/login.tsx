@@ -2,7 +2,6 @@ import { Form } from '@adonisjs/inertia/react'
 import { Container } from '~/lib/container'
 import { Button } from '~/lib/button'
 import { ErrorMessage, Field, FieldGroup, Label } from '~/lib/fieldset'
-import { Heading } from '~/lib/heading'
 import { Input } from '~/lib/input'
 import { Text } from '~/lib/text'
 import { Link } from '~/lib/link'
@@ -12,8 +11,10 @@ export default function Login() {
   return (
     <Container>
       <Card className="mt-10 w-1/2 m-auto p-4">
-        <Heading level={1}>Login to your account</Heading>
-        <Text>Enter your handle below to login to your account</Text>
+        <h1 className="mx-auto max-w-4xl mb-2 text-center font-display text-3xl leading-[1.2] font-extrabold tracking-tight text-slate-900 dark:text-slate-200 sm:text-5xl">
+          Sign Into Your <div className="text-amber-400">Eurosky Account.</div>
+        </h1>
+        <Text className="text-center">Enter your handle below to login to your account</Text>
         <Form className="mt-6" route="oauth.login">
           {({ errors, valid, isDirty }) => (
             <FieldGroup>
@@ -38,7 +39,7 @@ export default function Login() {
                 <Button
                   type="submit"
                   color={!valid || !isDirty ? 'zinc' : 'amber'}
-                  className="w-full"
+                  className="w-full py-3! disabled:cursor-default"
                   disabled={!valid || !isDirty}
                 >
                   Continue &rarr;
