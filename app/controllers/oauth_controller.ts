@@ -1,8 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { OAuthResolverError } from '@atproto/oauth-client-node'
-import env from '#start/env'
-import { loginRequestValidator, signupRequestValidator } from '#validators/oauth'
 import { DateTime } from 'luxon'
+import env from '#start/env'
+import Account from '#models/account'
+import { loginRequestValidator, signupRequestValidator } from '#validators/oauth'
 
 const oauthServerUrl = env.get('OAUTH_SERVICE')
 
@@ -27,7 +28,16 @@ export default class OAuthController {
   }
 
   async signup({ request, response, inertia, oauth, session }: HttpContext) {
-    await request.validateUsing(signupRequestValidator)
+    await request.validateUsing(signupRequestValidator, {
+      messagesProvider: {
+        getMessage(defaultMessage, rule, field) {
+          if (rule === 'required' && field.name === 'terms') {
+            return 'You must accept the terms of service & privacy policy to continue'
+          }
+          return defaultMessage
+        },
+      },
+    })
 
     session.put('source', 'signup')
     session.put('terms_accepted', DateTime.now().toISO())
@@ -72,6 +82,14 @@ export default class OAuthController {
       const result = await oauth.handleCallback()
 
       await result.user.fetchProfile(result.user.did)
+
+      // If we're coming from signup, then store that they accepted terms:
+      if (source === 'signup') {
+        await Account.firstOrCreate(
+          { did: result.user.did },
+          { did: result.user.did, termsAcceptedAt: termsAcceptedOn }
+        )
+      }
 
       await auth.use('web').login(result.user)
 

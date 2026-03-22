@@ -4,7 +4,7 @@ import { type Theme } from '~/utils/darkmode'
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 import { Button } from '~/lib/button'
 
-export default function ThemeToggle({}: React.ComponentPropsWithoutRef<'div'>) {
+export function ThemeToggle({}: React.ComponentPropsWithoutRef<'div'>) {
   const [theme, setTheme] = useState<Theme>(ThemeUtils.getTheme())
 
   useEffect(() => {

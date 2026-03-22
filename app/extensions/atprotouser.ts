@@ -1,7 +1,6 @@
 import { AtprotoUser } from '@thisismissem/adonisjs-atproto-oauth'
 import logger from '@adonisjs/core/services/logger'
-import { type l, type AtIdentifierString, XrpcResponse } from '@atproto/lex'
-import { XrpcInvalidResponseError } from '@atproto/lex'
+import { type l, type AtIdentifierString } from '@atproto/lex'
 
 import * as lexicon from '#lexicons'
 
