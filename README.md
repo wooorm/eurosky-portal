@@ -17,4 +17,3 @@ cp .env.docker.example .env.docker.local
 
 docker run -p 4075:4075 --rm --env-file .env.docker.local ghcr.io/eurosky-social/eurosky-portal:dev
 ```
-
