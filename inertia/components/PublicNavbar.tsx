@@ -30,7 +30,7 @@ export default function PublicNavbar() {
         >
           Privacy
         </NavbarItem>
-        <Button route="auth.login" outline>
+        <Button route="auth.login" outline className="hidden md:visible">
           Sign in
         </Button>
         <ThemeToggle />
