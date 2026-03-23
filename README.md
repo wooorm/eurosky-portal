@@ -4,10 +4,10 @@ This app provides the Eurosky Portal for accessing your account settings and app
 
 ## Development
 
-To build a development docker image:
+To build a development docker image (optional):
 
 ```sh
-docker build -f Dockerfile -t eurosky-portal:dev .
+docker build -f Dockerfile -t ghcr.io/eurosky-social/eurosky-portal:dev .
 ```
 
 To run that image:
@@ -15,9 +15,6 @@ To run that image:
 ```sh
 cp .env.docker.example .env.docker.local
 
-docker run -p 4075:4075 --rm --env-file .env.docker.local eurosky-portal:dev
+docker run -p 4075:4075 --rm --env-file .env.docker.local ghcr.io/eurosky-social/eurosky-portal:dev
 ```
 
-```
-
-```
