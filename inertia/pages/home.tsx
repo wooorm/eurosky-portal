@@ -16,7 +16,7 @@ export default function Home({
   return (
     <>
       <Hero />
-      <Container>
+      <Container id="apps">
         <h2 className="text-lg text-gray-400 dark:text-gray-400 font-bold uppercase text-center">
           An app for everything
         </h2>
