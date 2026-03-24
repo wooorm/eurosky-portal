@@ -10,15 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version-file: '.node-version'
           cache: pnpm
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          run_install: true
       - name: Run lint
         run: pnpm run lint
       - name: Check format
@@ -28,15 +28,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version-file: '.node-version'
           cache: pnpm
-      - name: Install Dependencies
-        run: pnpm install
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          run_install: true
       - name: Check typescript
         run: pnpm run typecheck
 
