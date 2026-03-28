@@ -9,7 +9,12 @@ import { Link } from './link'
 import type { LinkProps } from '@adonisjs/inertia/react'
 
 export function Navbar({ className, ...props }: React.ComponentPropsWithoutRef<'nav'>) {
-  return <nav {...props} className={clsx(className, 'flex flex-1 items-center gap-4 md:py-2.5')} />
+  return (
+    <nav
+      {...props}
+      className={clsx(className, 'flex flex-1 items-center gap-4 md:py-2.5 sticky top-0 z-50')}
+    />
+  )
 }
 
 export function NavbarDivider({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
@@ -78,7 +83,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
           <motion.span
             key="current-indicator"
             layoutId="current-indicator"
-            className="absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full bg-zinc-950 dark:bg-white"
+            className="absolute inset-x-2 -bottom-2.5 h-0.5 rounded-full bg-brand"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
