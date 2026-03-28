@@ -1,5 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { OAuthResolverError } from '@atproto/oauth-client-node'
+import { asAtIdentifierString, type AtIdentifierString } from '@atproto/lex'
 import { DateTime } from 'luxon'
 import env from '#start/env'
 import Account from '#models/account'
@@ -7,10 +8,41 @@ import { loginRequestValidator, signupRequestValidator } from '#validators/oauth
 import { createFieldError } from '#utils/errors'
 
 const oauthServerUrl = env.get('OAUTH_SERVICE')
+const allowExternalLogins = env.get('ALLOW_EXTERNAL_LOGINS', false)
+
+function isIdentifier(input: string): input is AtIdentifierString {
+  try {
+    asAtIdentifierString(input)
+    return true
+  } catch (error) {
+    return false
+  }
+}
 
 export default class OAuthController {
   async login({ request, inertia, oauth, session, logger }: HttpContext) {
     const { input } = await request.validateUsing(loginRequestValidator)
+
+    if (allowExternalLogins !== true) {
+      // the validation is accepting handles, dids, and services, so we need to
+      // assert we only have a handle or did string here:
+      if (!isIdentifier(input)) {
+        throw createFieldError('input', input, 'Please enter a handle')
+      }
+
+      const resolved = await oauth.resolveIdentity(input)
+      if (!resolved) {
+        throw createFieldError('input', input, 'Failed to resolve identity')
+      }
+
+      if (resolved.authorizationServer.toString() !== oauthServerUrl) {
+        throw createFieldError(
+          'input',
+          input,
+          'Currently the Eurosky portal is only available for Eurosky accounts. We are planning to extend availability to other Atmosphere accounts in the coming months.'
+        )
+      }
+    }
 
     try {
       const authorizationUrl = await oauth.authorize(input)
