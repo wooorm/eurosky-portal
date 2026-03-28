@@ -1,19 +1,23 @@
 import clsx from 'clsx'
 import { ReactNode, useState } from 'react'
 import { UserAvatar } from '~/components/UserAvatar'
-import { Avatar } from '~/lib/avatar'
 import { Button } from '~/lib/button'
-import Card, { ClickableCard } from '~/lib/card'
+import Card from '~/lib/card'
 import { Heading } from '~/lib/heading'
 import { Text } from '~/lib/text'
 import { InertiaProps } from '~/types'
 import { useAuth } from '~/utils/use_auth'
 import { Data } from '@generated/data'
+import { Apps } from '~/components/Apps'
 
 export default function Dashboard({
   apps,
 }: InertiaProps<{
-  apps: Data.App[]
+  apps: {
+    gettingStarted: Data.App[]
+    exploreMore: Data.App[]
+    forWork: Data.App[]
+  }
 }>) {
   const user = useAuth()
   const [showIntro, setShowIntro] = useState(localStorage.hide_intro !== 'true')
@@ -90,37 +94,14 @@ export default function Dashboard({
           </ul>
         </Card>
       )}
-      <h2 className="text-lg mt-8 font-medium text-slate-600 dark:text-slate-300">
-        Featured Applications
+      <h2 className="text-xl text-center mt-8 font-medium text-slate-500 dark:text-slate-300">
+        Featured applications
       </h2>
-      <p className="text-base font-normal text-slate-400 dark:text-slate-400">
+      <p className="text-center text-base md:textlg text-slate-400 dark:text-slate-400 mb-6">
         Your Eurosky account works with all of these.
       </p>
-      <ul
-        role="list"
-        className="mt-3 grid grid-cols-1 gap-5 sm:grid-cols-4 sm:gap-6 lg:grid-cols-5"
-      >
-        {apps.map((app) => (
-          <li key={app.id} className="col-span-1 flex rounded-md shadow-xs dark:shadow-none">
-            <ClickableCard
-              href={app.url}
-              target="_blank"
-              className="w-full focus:outline-hidden p-4"
-            >
-              <Avatar
-                square
-                src={app.icon.path}
-                className={`size-12 mb-2 bg-${app.icon.fallback.color}-400 text-white`}
-                initials={app.icon.fallback.initials}
-              />
-              <Heading level={4} className="text-base!">
-                {app.name}
-              </Heading>
-              <Text>{app.summary}</Text>
-            </ClickableCard>
-          </li>
-        ))}
-      </ul>
+
+      <Apps apps={apps} color="slate" />
     </>
   )
 }
@@ -152,7 +133,7 @@ function ActionItem({
     <li
       className={clsx(
         className,
-        highlight ? 'bg-amber-100 dark:bg-slate-400/50' : '',
+        highlight ? 'bg-amber-100 dark:bg-slate-700/50' : '',
         'flex flex-col md:flex-row items-center justify-between gap-x-6 gap-y-4 py-3 px-4'
       )}
     >

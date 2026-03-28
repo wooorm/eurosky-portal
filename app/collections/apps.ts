@@ -5,6 +5,9 @@ import { Collection } from '@adonisjs/content'
 import { loaders } from '@adonisjs/content/loaders'
 import '#extensions/vine.fileExists'
 
+const categories = ['getting-started', 'explore-more', 'for-work'] as const
+type Category = (typeof categories)[number]
+
 const appSchema = vine.object({
   id: vine.string().alphaNumeric({ allowUnderscores: true }),
   name: vine.string(),
@@ -52,17 +55,20 @@ const appSchema = vine.object({
     protocols: ['https'],
   }),
   summary: vine.string().maxLength(300),
+  platforms: vine.array(vine.enum(['ios', 'android', 'web'])).distinct(),
+  category: vine.enum(categories),
+  madeInEU: vine.boolean().optional(),
 })
 
 const Apps = Collection.create({
   schema: vine.array(appSchema),
   loader: loaders.jsonLoader(app.makePath('data', 'apps.json')),
   cache: app.inProduction,
-  // views: {
-  //   findByName(data, name: string) {
-  //     return data.find((document) => document.name === name)
-  //   },
-  // },
+  views: {
+    findByCategory(data, category: Category) {
+      return data.filter((application) => application.category === category)
+    },
+  },
 })
 
 export type App = Infer<typeof appSchema>
