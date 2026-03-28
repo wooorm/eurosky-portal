@@ -5,7 +5,7 @@ import { LockClosedIcon } from '@heroicons/react/24/solid'
 export function Hero() {
   return (
     <Container className="pt-6 md:pt-10 pb-16 text-center lg:pt-24">
-      <div className="py-1 px-4 mb-8 md:mb-6 md:inline-block rounded-xl bg-amber-100 border-amber-300 border text-yellow-600 uppercase font-bold">
+      <div className="py-1 px-4 mb-8 md:mb-6 md:inline-block rounded-xl  bg-amber-100 border-amber-300 border text-yellow-600 dark:bg-slate-600 dark:border-slate-700 dark:text-slate-300 uppercase font-bold">
         <span className="flex flex-col md:flex-row gap-x-2 justify-center-safe">
           <span>
             Now open<span className="inline md:hidden">!</span>
@@ -14,6 +14,7 @@ export function Hero() {
           <span>Join the future of the web</span>
         </span>
       </div>
+
       <h1 className="mx-auto max-w-4xl font-display text-3xl sm:text-6xl lg:text-5xl leading-[1.3] font-extrabold tracking-tight text-slate-900 dark:text-slate-200">
         Eurosky: Your Portal to <div className="text-amber-400">the Atmosphere.</div>
       </h1>
