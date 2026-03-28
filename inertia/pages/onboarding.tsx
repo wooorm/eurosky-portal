@@ -11,7 +11,7 @@ export default function Onboarding(
 ) {
   return (
     <Container>
-      <Card className="mt-10 w-1/2 m-auto p-4 mb-6">
+      <Card className="mt-10 w-full md:w-1/2 m-auto p-4 mb-6">
         <h1 className="mx-auto max-w-4xl mb-2 text-center font-display text-3xl leading-[1.2] font-extrabold tracking-tight text-slate-900 dark:text-slate-200 sm:text-5xl">
           Welcome to <div className="text-amber-400">Eurosky.</div>
         </h1>

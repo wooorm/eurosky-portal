@@ -1,6 +1,10 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --text-tiny: 0.625rem;
+}
+
 @utility min-h-dvh-minus-* {
   min-height: calc(100dvh - var(--spacing) * --value(integer));
   min-height: calc(100dvh - --value([length]));

@@ -8,10 +8,9 @@ import { urlFor } from '~/client'
 
 export default function PublicNavbar() {
   const page = usePage()
-  console.log(page.url)
 
   return (
-    <Navbar className="ps-4 pe-8">
+    <Navbar className="gap-2! md:gap-4! pe-6">
       <Link route="home" aria-label="Home">
         <Logo />
       </Link>
@@ -30,10 +29,10 @@ export default function PublicNavbar() {
         >
           Privacy
         </NavbarItem>
-        <Button route="auth.login" outline className="hidden md:visible">
+        <Button route="auth.login" outline className="hidden! md:inline-flex!">
           Sign in
         </Button>
-        <ThemeToggle />
+        <ThemeToggle className="hidden! md:inline-flex!" />
       </NavbarSection>
     </Navbar>
   )

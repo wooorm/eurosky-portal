@@ -36,7 +36,7 @@ function MobileSidebar({
         className="fixed inset-y-0 w-full max-w-80 p-2 transition duration-300 ease-in-out data-closed:-translate-x-full"
       >
         <div className="flex h-full flex-col rounded-lg bg-white shadow-xs ring-1 ring-slate-950/5 dark:bg-slate-900 dark:ring-white/10">
-          <div className="-mb-3 px-4 pt-3">
+          <div className="-mb-3 px-4 pt-3 self-end">
             <Headless.CloseButton as={NavbarItem} aria-label="Close navigation">
               <CloseMenuIcon />
             </Headless.CloseButton>
@@ -67,12 +67,12 @@ export function SidebarLayout({
 
       {/* Navbar on mobile */}
       <header className="flex items-center px-4 lg:hidden">
+        <div className="min-w-0 flex-1">{navbar}</div>
         <div className="py-2.5">
           <NavbarItem onClick={() => setShowSidebar(true)} aria-label="Open navigation">
             <OpenMenuIcon />
           </NavbarItem>
         </div>
-        <div className="min-w-0 flex-1">{navbar}</div>
       </header>
 
       {/* Content */}

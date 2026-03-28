@@ -23,16 +23,16 @@ export default function Dashboard({
   }
   return (
     <>
-      <Card className="p-4">
+      <Card className="p-3 md:p-4">
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-6">
-            <div className="size-20 self-center">
+            <div className="size-14 md:size-20 md:self-center">
               <UserAvatar user={user} />
             </div>
             <div className="flex flex-col">
               <Heading level={2}>{user.displayName ?? user.handle}</Heading>
               <Text className="text-slate-400!">@{user.handle}</Text>
-              <dl className="grid grid-cols-1 sm:grid-cols-3">
+              <dl className="hidden md:grid grid-cols-1 sm:grid-cols-3">
                 <div className="pr-4 py-2 sm:col-span-1 flex flex-col-reverse">
                   <StatHeading>Posts</StatHeading>
                   <StatValue>{user.postsCount ?? 0}</StatValue>
@@ -62,7 +62,7 @@ export default function Dashboard({
               heading="Welcome to the Atmosphere"
               highlight={true}
               action={
-                <Button onClick={hideIntro} outline>
+                <Button onClick={hideIntro} outline className="w-full md:w-auto">
                   Dismiss
                 </Button>
               }
@@ -72,7 +72,8 @@ export default function Dashboard({
             </ActionItem>
             <ActionItem heading="Your account is ready">
               <span className="white-space-collapse">
-                You've joined the Atmosphere with Euroesky. Your handle is{' '}
+                You've joined the Atmosphere with Eurosky.
+                <span className="block visible md:hidden pb-2"></span> Your handle is{' '}
                 <strong className="text-amber-500 font-bold whitespace-pre">@{user.handle}</strong>
                 {'. '}
                 Don't forget to verify your email.
@@ -152,7 +153,7 @@ function ActionItem({
       className={clsx(
         className,
         highlight ? 'bg-amber-100 dark:bg-slate-400/50' : '',
-        'flex items-center justify-between gap-x-6 py-3 px-4'
+        'flex flex-col md:flex-row items-center justify-between gap-x-6 gap-y-4 py-3 px-4'
       )}
     >
       <div className="flex flex-col grow">
@@ -166,7 +167,7 @@ function ActionItem({
         </div>
         <div
           className={clsx(
-            'mt-0.5 flex flex-row justify-between text-xs/5',
+            'mt-0.5 flex flex-row justify-between text-xs/6',
             highlight ? 'text-gray-500 dark:text-gray-300' : 'text-gray-500 dark:text-gray-400'
           )}
         >
