@@ -19,7 +19,7 @@ export function Apps({ apps, color }: { apps: Apps; color?: 'gray' | 'slate' }) 
       <h3 className={headingStyle}>Getting started</h3>
       <ul
         role="list"
-        className="mt-4 mb-8 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4"
+        className="mt-4 mb-8 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
         {apps.gettingStarted.map((app) => (
           <App key={app.id} app={app} />
@@ -29,7 +29,7 @@ export function Apps({ apps, color }: { apps: Apps; color?: 'gray' | 'slate' }) 
       <h3 className={headingStyle}>Explore more</h3>
       <ul
         role="list"
-        className="mt-4 mb-8 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4"
+        className="mt-4 mb-8 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
         {apps.exploreMore.map((app) => (
           <App key={app.id} app={app} />
@@ -39,7 +39,7 @@ export function Apps({ apps, color }: { apps: Apps; color?: 'gray' | 'slate' }) 
       <h3 className={headingStyle}>For work</h3>
       <ul
         role="list"
-        className="mt-4 mb-8 grid grid-cols-1 gap-5 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4"
+        className="mt-4 mb-8 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
         {apps.forWork.map((app) => (
           <App key={app.id} app={app} />
