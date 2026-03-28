@@ -3,8 +3,9 @@ import * as ThemeUtils from '~/utils/darkmode'
 import { type Theme } from '~/utils/darkmode'
 import { LightBulbIcon, MoonIcon } from '@heroicons/react/24/solid'
 import { Button } from '~/lib/button'
+import clsx from 'clsx'
 
-export function ThemeToggle({}: React.ComponentPropsWithoutRef<'div'>) {
+export function ThemeToggle({ className }: React.ComponentPropsWithoutRef<'div'>) {
   const [theme, setTheme] = useState<Theme>(ThemeUtils.getTheme())
 
   useEffect(() => {
@@ -26,7 +27,11 @@ export function ThemeToggle({}: React.ComponentPropsWithoutRef<'div'>) {
   }, [theme])
 
   return (
-    <Button className="relative inline-block w-10 h-10 p-0.5!" plain onClick={toggleTheme}>
+    <Button
+      className={clsx(className, 'relative inline-block w-10 h-10 p-0.5!')}
+      plain
+      onClick={toggleTheme}
+    >
       {theme === 'dark' ? (
         <LightBulbIcon title="Set theme to light" />
       ) : (

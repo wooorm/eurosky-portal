@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: ReactElement<Data.Share
   return (
     <div>
       {children.props.isAuthenticated ? <DashboardNavbar /> : <PublicNavbar />}
-      <main>{children}</main>
+      <main className="mb-2">{children}</main>
       <Toaster position="top-center" richColors />
     </div>
   )

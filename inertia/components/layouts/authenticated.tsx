@@ -6,6 +6,7 @@ import DashboardNavbar from '~/components/DashboardNavbar'
 import {
   Sidebar,
   SidebarBody,
+  SidebarFooter,
   SidebarHeading,
   SidebarItem,
   SidebarLabel,
@@ -22,12 +23,17 @@ import {
   LifebuoyIcon,
   LockClosedIcon,
 } from '@heroicons/react/24/solid'
+import { UserAvatar } from '../UserAvatar'
+import { useAuth } from '~/utils/use_auth'
+import { Form } from '@adonisjs/inertia/react'
+import { Button } from '~/lib/button'
 
 export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedProps> }) {
   const {
     props: { authorizationServer },
     url,
   } = usePage()
+  const user = useAuth()
 
   const manageUrl = useMemo(() => {
     return new URL('/account', authorizationServer).toString()
@@ -35,9 +41,11 @@ export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedP
 
   return (
     <div>
-      <DashboardNavbar />
+      <div className="hidden lg:block lg:pe-4">
+        <DashboardNavbar />
+      </div>
       <SidebarLayout
-        navbar={<div />}
+        navbar={<DashboardNavbar />}
         sidebar={
           <Sidebar>
             <SidebarBody>
@@ -79,6 +87,21 @@ export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedP
                 </SidebarItem>
               </SidebarSection>
             </SidebarBody>
+            <SidebarFooter className="lg:hidden">
+              <SidebarSection>
+                <SidebarItem as={'div'} className="pointer-events-none">
+                  <UserAvatar user={user} />
+                  <SidebarLabel>@{user.handle}</SidebarLabel>
+                </SidebarItem>
+                <SidebarItem>
+                  <Form route="oauth.logout" className="w-full flex justify-stretch">
+                    <Button type="submit" className="w-full text-left">
+                      Logout
+                    </Button>
+                  </Form>
+                </SidebarItem>
+              </SidebarSection>
+            </SidebarFooter>
           </Sidebar>
         }
         children={
