@@ -33,14 +33,14 @@
 
 .dark {
   color: var(--color-slate-100);
-  background: var(--color-slate-900);
+  background: var(--color-slate-800);
 }
 
 #logo {
   margin-top: 6px;
   margin-bottom: 6px;
   display: block;
-  height: 50px;
+  height: 40px;
   width: 140px;
   background-image: url('../images/logo-black.png');
   background-size: contain;

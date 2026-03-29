@@ -14,7 +14,7 @@ export default function DashboardNavbar({ className }: React.ComponentProps<'div
 
   return (
     <Navbar className={clsx(className, 'dark:bg-slate-800/70')}>
-      <Link route="home" aria-label="Home" className="rounded-sm ml-6">
+      <Link route="home" aria-label="Home" className="rounded-sm md:ml-6 my-1">
         <Logo />
       </Link>
       <NavbarSpacer />
