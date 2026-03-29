@@ -40,7 +40,7 @@ export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedP
   }, [authorizationServer])
 
   return (
-    <div>
+    <div className="dashboard">
       <div className="hidden lg:block">
         <DashboardNavbar className="lg:pe-4" />
       </div>
@@ -95,7 +95,7 @@ export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedP
                 </SidebarItem>
                 <SidebarItem>
                   <Form route="oauth.logout" className="w-full flex justify-stretch">
-                    <Button type="submit" className="w-full text-left">
+                    <Button type="submit" className="w-full text-left dark:bg-slate-800">
                       Logout
                     </Button>
                   </Form>

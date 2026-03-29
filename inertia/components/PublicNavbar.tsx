@@ -11,7 +11,7 @@ export default function PublicNavbar() {
 
   return (
     <Navbar className="gap-2! md:gap-4! md:px-6 px-3 bg-neutral-50 dark:bg-slate-800">
-      <Link route="home" aria-label="Home">
+      <Link route="home" aria-label="Home" className="pb-3 mt-1">
         <Logo />
       </Link>
       <NavbarSpacer />
