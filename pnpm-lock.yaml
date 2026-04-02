@@ -81,8 +81,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       edge-markdown:
-        specifier: ^1.10.0
-        version: 1.10.0
+        specifier: ^1.10.1
+        version: 1.10.1
       edge.js:
         specifier: ^6.5.0
         version: 6.5.0
@@ -2296,8 +2296,8 @@ packages:
     resolution: {integrity: sha512-rHlTSZUQfBu/fwnAjoaLCGGmDzpRPgUC8FEqNdJtpPEjBRCqU3a4Le7iJ8KSQfY2WvWx6NTGAwti62xj3eIz1w==}
     engines: {node: '>=18.16.0'}
 
-  edge-markdown@1.10.0:
-    resolution: {integrity: sha512-a1qWmkoZWzxcZ5vsXSfxU6fi6hG7L73y7KTco7Aiw0Tkd6PuYhGZCXL739UDsXjxkiDBkyDyTSOToKhuKiXKYw==}
+  edge-markdown@1.10.1:
+    resolution: {integrity: sha512-TvkcB+YOPX+sQWqWOUthqE1udDeEwejJoJuqbEUFsJz9clEYo8p4aC53KH6R+e1ok3WX0OUExFl9ksGOkoElOQ==}
     engines: {node: '>=24.0.0'}
 
   edge-parser@9.1.0:
@@ -3872,8 +3872,8 @@ packages:
     resolution: {integrity: sha512-stxByr12oeeOyY2BlviTNQlYV5xOj47GirPr4yA1hE9JCtxfQN0+tVbkxwCtYDQWhEKWFHsEK48ORg5jrouCAg==}
     engines: {node: '>=20'}
 
-  slugify@1.6.8:
-    resolution: {integrity: sha512-HVk9X1E0gz3mSpoi60h/saazLKXKaZThMLU3u/aNwoYn8/xQyX2MGxL0ui2eaokkD7tF+Zo+cKTHUbe1mmmGzA==}
+  slugify@1.6.9:
+    resolution: {integrity: sha512-vZ7rfeehZui7wQs438JXBckYLkIIdfHOXsaVEUMyS5fHo1483l1bMdo0EDSWYclY0yZKFOipDy4KHuKs6ssvdg==}
     engines: {node: '>=8.0.0'}
 
   sonic-boom@3.8.1:
@@ -5502,7 +5502,7 @@ snapshots:
       '@types/pluralize': 0.0.33
       case-anything: 3.1.2
       pluralize: 8.0.0
-      slugify: 1.6.8
+      slugify: 1.6.9
 
   '@poppinss/ts-exec@1.4.4(@swc/helpers@0.5.19)':
     dependencies:
@@ -6426,7 +6426,7 @@ snapshots:
     dependencies:
       edge-error: 4.0.2
 
-  edge-markdown@1.10.0:
+  edge-markdown@1.10.1:
     dependencies:
       '@poppinss/string': 1.7.1
       '@shikijs/rehype': 4.0.2
@@ -8268,7 +8268,7 @@ snapshots:
       ansi-styles: 6.2.3
       is-fullwidth-code-point: 5.1.0
 
-  slugify@1.6.8: {}
+  slugify@1.6.9: {}
 
   sonic-boom@3.8.1:
     dependencies:
