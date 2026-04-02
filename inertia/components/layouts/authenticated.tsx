@@ -67,15 +67,22 @@ export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedP
               <SidebarSection>
                 <SidebarItem href="https://help.eurosky.tech" target="_blank" as={'a'}>
                   <LifebuoyIcon />
-                  <SidebarLabel>Help</SidebarLabel>
+                  <SidebarLabel className="flex gap-1">
+                    Help <ArrowTopRightOnSquareIcon className="size-4 inline-block self-center" />
+                  </SidebarLabel>
                 </SidebarItem>
                 <SidebarItem href="https://eurosky.tech/faq" target="_blank" as={'a'}>
                   <QuestionMarkCircleIcon />
-                  <SidebarLabel>FAQ</SidebarLabel>
+                  <SidebarLabel className="flex gap-1">
+                    FAQ <ArrowTopRightOnSquareIcon className="size-4 inline-block self-center" />
+                  </SidebarLabel>
                 </SidebarItem>
                 <SidebarItem href="https://eurosky.tech/contact-us" target="_blank" as={'a'}>
                   <ChatBubbleOvalLeftEllipsisIcon />
-                  <SidebarLabel>Contact Us</SidebarLabel>
+                  <SidebarLabel className="flex gap-1">
+                    Contact Us{' '}
+                    <ArrowTopRightOnSquareIcon className="size-4 inline-block self-center" />
+                  </SidebarLabel>
                 </SidebarItem>
                 <SidebarItem route="legal.show" routeParams={{ document: 'terms' }}>
                   <DocumentTextIcon />
