@@ -64,7 +64,7 @@
   {
     "id": "skywalker",
     "name": "Skywalker",
-    "summary": "European Bluesky client for Android",
+    "summary": "Bluesky client for Android",
     "url": "https://play.google.com/store/apps/details?id=com.gmail.mfnboer.skywalker&hl=en_GB",
     "platforms": ["android"],
     "category": "getting-started",
@@ -80,7 +80,7 @@
   {
     "id": "skeets",
     "name": "Skeets",
-    "summary": "European Bluesky client for iOS",
+    "summary": "Bluesky client for iOS",
     "url": "https://www.skeetsapp.com/",
     "platforms": ["ios"],
     "category": "getting-started",
