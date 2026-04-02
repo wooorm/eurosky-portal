@@ -11,9 +11,7 @@ import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import.meta.glob(['../data/icons/**'])
 
 const appName = import.meta.env.VITE_APP_NAME || 'Eurosky'
-
 createInertiaApp({
-  title: (title) => (title ? `${title} - ${appName}` : appName),
   resolve: (name) => {
     return resolvePageComponent(
       `./pages/${name}.tsx`,
@@ -28,6 +26,7 @@ createInertiaApp({
       </TuyauProvider>
     )
   },
+  title: (title: string) => (title ? `${title} | ${appName}` : appName),
   progress: {
     color: '#9ac2ff',
   },

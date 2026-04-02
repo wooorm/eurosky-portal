@@ -7,6 +7,8 @@ import { createInertiaApp } from '@inertiajs/react'
 import { TuyauProvider } from '@adonisjs/inertia/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 
+const appName = import.meta.env.VITE_APP_NAME || 'Eurosky'
+
 export default function render(page: any) {
   return createInertiaApp({
     page,
@@ -25,5 +27,6 @@ export default function render(page: any) {
         </TuyauProvider>
       )
     },
+    title: (title: string) => (title ? `${title} | ${appName}` : appName),
   })
 }

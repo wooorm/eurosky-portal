@@ -9,6 +9,7 @@ import { InertiaProps } from '~/types'
 import { useAuth } from '~/utils/use_auth'
 import { Data } from '@generated/data'
 import { Apps } from '~/components/Apps'
+import { Head } from '@inertiajs/react'
 
 export default function Dashboard({
   apps,
@@ -27,6 +28,7 @@ export default function Dashboard({
   }
   return (
     <>
+      <Head title="Dashboard" />
       <Card className="p-3 md:p-4 mb-8">
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-6">
