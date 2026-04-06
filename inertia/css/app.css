@@ -33,6 +33,18 @@
   }
 }
 
+#nprogress .bar .peg {
+  box-shadow:
+    0 0 10px var(--color-black),
+    0 0 5px var(--color-black) !important;
+
+  @variant dark {
+    box-shadow:
+      0 0 10px var(--color-white),
+      0 0 5px var(--color-white) !important;
+  }
+}
+
 :root {
   scroll-padding-top: 100px;
 }
