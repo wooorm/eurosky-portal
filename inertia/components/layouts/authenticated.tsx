@@ -22,6 +22,7 @@ import {
   ArrowTopRightOnSquareIcon,
   LifebuoyIcon,
   LockClosedIcon,
+  FingerPrintIcon,
 } from '@heroicons/react/24/solid'
 import { UserAvatar } from '../UserAvatar'
 import { useAuth } from '~/utils/use_auth'
@@ -37,6 +38,10 @@ export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedP
 
   const manageUrl = useMemo(() => {
     return new URL('/account', authorizationServer).toString()
+  }, [authorizationServer])
+
+  const changePasswordUrl = useMemo(() => {
+    return new URL('/.well-known/change-password', authorizationServer).toString()
   }, [authorizationServer])
 
   return (
@@ -59,6 +64,13 @@ export function AuthenticatedLayout(props: { children: ReactElement<Data.SharedP
                   <Cog6ToothIcon />
                   <SidebarLabel className="flex gap-1">
                     Manage Account{' '}
+                    <ArrowTopRightOnSquareIcon className="size-4 inline-block self-center" />
+                  </SidebarLabel>
+                </SidebarItem>
+                <SidebarItem href={changePasswordUrl} target="_blank" as={'a'}>
+                  <FingerPrintIcon />
+                  <SidebarLabel className="flex gap-1">
+                    Change Password{' '}
                     <ArrowTopRightOnSquareIcon className="size-4 inline-block self-center" />
                   </SidebarLabel>
                 </SidebarItem>
