@@ -2,7 +2,7 @@
   {
     "id": "bsky",
     "name": "Bluesky",
-    "summary": "Flagship social feed experience",
+    "summary": "A healthier, thriving alternative to X",
     "url": "https://bsky.app",
     "platforms": ["ios", "android", "web"],
     "category": "getting-started",
