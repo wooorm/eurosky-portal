@@ -21,7 +21,11 @@ export default function Layout({ children }: { children: ReactElement<Data.Share
     return (
       <div>
         <BetaWarning />
-        {children.props.isAuthenticated ? <DashboardNavbar /> : <PublicNavbar />}
+        {children.props.isAuthenticated ? (
+          <DashboardNavbar className="lg:pe-4" />
+        ) : (
+          <PublicNavbar />
+        )}
         <main className="mb-2">{children}</main>
         <Toaster position="top-center" richColors />
       </div>
