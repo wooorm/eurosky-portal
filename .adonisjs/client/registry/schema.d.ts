@@ -127,6 +127,18 @@ export interface Registry {
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/account_controller').default['storeAcceptance']>>> | { status: 422; response: { errors: SimpleError[] } }
     }
   }
+  'account.dismiss_welcome': {
+    methods: ["POST"]
+    pattern: '/account/dismiss-welcome'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/account_controller').default['dismissWelcome']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/account_controller').default['dismissWelcome']>>>
+    }
+  }
   'legal.show': {
     methods: ["GET","HEAD"]
     pattern: '/legal/:document'

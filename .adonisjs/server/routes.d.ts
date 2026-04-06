@@ -14,6 +14,7 @@ export type ScannedRoutes = {
     'dashboard.show': { paramsTuple?: []; params?: {} }
     'account.onboarding': { paramsTuple?: []; params?: {} }
     'account.store_acceptance': { paramsTuple?: []; params?: {} }
+    'account.dismiss_welcome': { paramsTuple?: []; params?: {} }
     'legal.show': { paramsTuple: [ParamValue]; params: {'document': ParamValue} }
   }
   GET: {
@@ -39,6 +40,7 @@ export type ScannedRoutes = {
     'oauth.login': { paramsTuple?: []; params?: {} }
     'oauth.signup': { paramsTuple?: []; params?: {} }
     'account.store_acceptance': { paramsTuple?: []; params?: {} }
+    'account.dismiss_welcome': { paramsTuple?: []; params?: {} }
   }
 }
 declare module '@adonisjs/core/types/http' {

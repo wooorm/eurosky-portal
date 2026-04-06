@@ -5,6 +5,7 @@ import app from '@adonisjs/core/services/app'
 import { termsRequestValidator } from '#validators/legal'
 import LegalDocuments from '#collections/legal'
 import LegalDocumentsTransformer from '#transformers/legal_documents_transformer'
+
 export default class RegistrationController {
   private async loadLegalDocuments({ view }: HttpContext) {
     const query = await LegalDocuments.load()
@@ -64,5 +65,16 @@ export default class RegistrationController {
     await Account.updateOrCreate({ did: user.did }, { termsAcceptedAt: DateTime.now() })
 
     response.redirect().toRoute('dashboard.show')
+  }
+
+  async dismissWelcome({ auth, response }: HttpContext) {
+    const account = await auth.getUserOrFail().getAccount()
+    await account
+      .merge({
+        welcomeDismissed: true,
+      })
+      .save()
+
+    return response.ok({ success: true })
   }
 }

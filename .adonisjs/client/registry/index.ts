@@ -66,6 +66,12 @@ const routes = {
     tokens: [{"old":"/onboarding","type":0,"val":"onboarding","end":""}],
     types: placeholder as Registry['account.store_acceptance']['types'],
   },
+  'account.dismiss_welcome': {
+    methods: ["POST"],
+    pattern: '/account/dismiss-welcome',
+    tokens: [{"old":"/account/dismiss-welcome","type":0,"val":"account","end":""},{"old":"/account/dismiss-welcome","type":0,"val":"dismiss-welcome","end":""}],
+    types: placeholder as Registry['account.dismiss_welcome']['types'],
+  },
   'legal.show': {
     methods: ["GET","HEAD"],
     pattern: '/legal/:document',
