@@ -90,7 +90,7 @@
     "@inertiajs/react": "^2.3.17",
     "@tailwindcss/vite": "^4.2.1",
     "@thisismissem/adonisjs-atproto-oauth": "^3.0.3",
-    "@tuyau/core": "^1.0.0",
+    "@tuyau/core": "^1.2.2",
     "@vinejs/vine": "^4.3.0",
     "better-sqlite3": "^12.8.0",
     "clsx": "^2.1.1",
