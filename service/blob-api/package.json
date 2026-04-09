@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "better-sqlite3": "^12.8.0",
+    "hono": "^4.7.10"
+  },
+  "devDependencies": {
+    "@atproto/lex": "^0.0.23",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.11.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  },
+  "name": "@eurosky/blob-api",
+  "private": true,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node --enable-source-maps dist/service/blob-api/src/index.js"
+  },
+  "type": "module",
+  "version": "0.0.0"
+}
