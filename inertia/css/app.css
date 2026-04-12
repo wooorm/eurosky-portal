@@ -99,16 +99,33 @@ details:open summary > svg {
 }
 
 .markdown-document h1 {
-  font-size: large;
+  font-size: var(--text-xl);
+  line-height: var(--text-xl--line-height);
   font-weight: 600;
   margin-bottom: calc(var(--spacing) * 4);
+}
+
+.markdown-document h2 {
+  font-size: var(--text-lg);
+  line-height: var(--text-lg--line-height);
+  font-weight: 600;
+  margin: calc(var(--spacing) * 8) 0 calc(var(--spacing) * 4);
+}
+
+.markdown-document h3 {
+  font-size: var(--text-base);
+  line-height: var(--text-base--line-height);
+  font-weight: 600;
+  margin: calc(var(--spacing) * 6) 0 calc(var(--spacing) * 2);
 }
 
 .markdown-document p {
   margin: calc(var(--spacing) * 2) 0;
 }
 
-.markdown-document p + p {
+.markdown-document p + p,
+.markdown-document p + ol,
+.markdown-document p + ul {
   margin-top: calc(var(--spacing) * 4);
 }
 
@@ -151,4 +168,14 @@ details:open summary > svg {
   margin-left: calc(var(--spacing) * 8);
   margin-bottom: calc(var(--spacing) * 2);
   margin-top: var(--spacing);
+}
+
+.markdown-document ol li img,
+.markdown-document ul li img {
+  margin: calc(var(--spacing) * 4) 0 calc(var(--spacing) * 8) 0;
+  max-width: 1000px;
+
+  @variant dark {
+    border: 1px solid var(--color-slate-700);
+  }
 }
