@@ -17,6 +17,9 @@ const styles = {
     // Icon
     '*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-0.5 *:data-[slot=icon]:size-5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) sm:*:data-[slot=icon]:my-1 sm:*:data-[slot=icon]:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:data-hover:[--btn-icon:ButtonText]',
   ],
+  link: [
+    'p-0! bg-none border-none text-blue-500 font-normal! data-hover:underline data-active:underline',
+  ],
   solid: [
     // Optical border, implemented as the button background to avoid corner artifacts
     'border-transparent bg-(--btn-border)',
@@ -170,9 +173,11 @@ type ButtonProps = (
       color?: keyof typeof styles.colors
       outline?: never
       plain?: never
+      link?: never
     }
-  | { color?: never; outline: true; plain?: never }
-  | { color?: never; outline?: never; plain: true }
+  | { color?: never; outline: true; plain?: never; link?: never }
+  | { color?: never; outline?: never; plain: true; link?: never }
+  | { color?: never; outline?: never; plain?: never; link: true }
 ) & { className?: string; children: React.ReactNode } & (
     | ({ href?: never; route?: never; type?: ButtonType } & Omit<
         Headless.ButtonProps,
@@ -182,7 +187,7 @@ type ButtonProps = (
   )
 
 export const Button = forwardRef(function Button(
-  { color, outline, plain, className, children, type, ...props }: ButtonProps,
+  { color, outline, plain, link, className, children, type, ...props }: ButtonProps,
   ref: React.ForwardedRef<HTMLElement>
 ) {
   let classes = clsx(
@@ -191,7 +196,9 @@ export const Button = forwardRef(function Button(
       ? styles.outline
       : plain
         ? styles.plain
-        : clsx(styles.solid, styles.colors[color ?? 'dark/zinc']),
+        : link
+          ? styles.link
+          : clsx(styles.solid, styles.colors[color ?? 'dark/zinc']),
     className
   )
 

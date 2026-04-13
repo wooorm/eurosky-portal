@@ -1,34 +1,35 @@
-import Account from '#models/account'
 import type { HttpContext } from '@adonisjs/core/http'
 import type { NextFn } from '@adonisjs/core/types/http'
 import LegalDocuments from '#collections/legal'
+import { DateTime } from 'luxon'
 
 export default class LegalMiddleware {
-  async handle({ request, response, auth, session }: HttpContext, next: NextFn) {
-    const user = auth.getUserOrFail()
-    const account = await Account.findBy({ did: user.did })
+  async handle({ request, response, auth }: HttpContext, next: NextFn) {
+    const account = await auth.getUserOrFail().getAccount()
 
     const query = await LegalDocuments.load()
-    const document = query.findByName('terms')
+    const documents = await query.all()
 
-    if (!document) {
-      return response.internalServerError('Missing terms of service document')
+    if (!documents.terms || !documents.privacy) {
+      return response.internalServerError('Missing terms of service or privacy policy document')
     }
 
-    const termsAccepted =
-      account && account.termsAcceptedAt && account.termsAcceptedAt >= document.updatedAt
+    const now = DateTime.now()
+    const acceptanceRequired =
+      // if we haven't accepted legal documents yet:
+      account.termsAcceptedAt === null ||
+      // or the Terms have updated today or in the past
+      (account.termsAcceptedAt < documents.terms.updatedAt && now >= documents.terms.updatedAt) ||
+      // or the Privacy policy has updated today or in the past
+      (account.termsAcceptedAt < documents.privacy.updatedAt && now >= documents.privacy.updatedAt)
 
-    if (request.url().startsWith('/onboarding')) {
-      if (termsAccepted) {
-        return response.redirect().toRoute('dashboard.show')
-      }
-
-      return await next()
+    const isOnboarding = request.url().startsWith('/onboarding')
+    if (!acceptanceRequired && isOnboarding) {
+      return response.redirect().toRoute('dashboard.show')
     }
 
-    if (!termsAccepted) {
-      session.flash('prevUrl', request.url())
-      return response.redirect().toRoute('account.onboarding')
+    if (acceptanceRequired && !isOnboarding) {
+      return response.redirect().withIntendedUrl().toRoute('account.onboarding')
     }
 
     return await next()

@@ -30,6 +30,8 @@ const loggerConfig = defineConfig({
        */
       destination: !app.inProduction ? await syncDestination() : undefined,
 
+      redact: ['query.code', 'query.state'],
+
       /**
        * Configure where logs are written.
        */

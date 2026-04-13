@@ -13,19 +13,16 @@ import MarkdownDocument from './MarkdownDocument'
 type Routes = keyof typeof routes
 type PolicyFormProps<Route extends Routes> = {
   terms: string
-  privacyPolicy: string
+  privacy: string
 } & Pick<FormRouteProps<Route>, 'route'>
 
-export function PolicyForm({ route, terms, privacyPolicy }: PolicyFormProps<Routes>) {
+export function PolicyForm({ route, terms, privacy }: PolicyFormProps<Routes>) {
   const form = useForm({
     terms: false,
   })
 
   return (
     <>
-      <Text className="text-center text-slate-600">
-        Before we get started, please review and accept our terms.
-      </Text>
       <div className="flex flex-col my-4 gap-4">
         <PolicyDetails
           header={
@@ -43,10 +40,10 @@ export function PolicyForm({ route, terms, privacyPolicy }: PolicyFormProps<Rout
               Privacy Policy
             </>
           }
-          document={privacyPolicy}
+          document={privacy}
         />
       </div>
-      <Form className="mt-6 mb-2" route={route}>
+      <Form className="my-6" route={route}>
         {({ errors, processing }) => (
           <div className="flex flex-col gap-4">
             <div className="inline-block">
@@ -87,14 +84,6 @@ export function PolicyForm({ route, terms, privacyPolicy }: PolicyFormProps<Rout
             >
               Continue &rarr;
             </Button>
-            {route === 'oauth.signup' && (
-              <Text className="text-center">
-                Already have an account?{' '}
-                <Link route="auth.login" className="text-blue-500 hover:underline">
-                  Sign in
-                </Link>
-              </Text>
-            )}
           </div>
         )}
       </Form>

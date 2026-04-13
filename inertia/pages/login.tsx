@@ -19,7 +19,7 @@ export default function Login({ migrationUrl }: InertiaProps<{ migrationUrl?: st
             Sign Into Your <div className="text-brand">Eurosky Account.</div>
           </h1>
           <Text className="text-center">Enter your handle below to login to your account</Text>
-          <Form className="mt-6" route="oauth.login">
+          <Form className="my-6" route="oauth.login">
             {({ errors, valid, isDirty }) => (
               <FieldGroup>
                 <Field>
@@ -49,15 +49,15 @@ export default function Login({ migrationUrl }: InertiaProps<{ migrationUrl?: st
                     Continue &rarr;
                   </Button>
                 </Field>
-                <Text className="text-center">
-                  Don&apos;t have an account?{' '}
-                  <Link route="account.create" className="text-blue-500 hover:underline">
-                    Sign up
-                  </Link>
-                </Text>
               </FieldGroup>
             )}
           </Form>
+          <Text className="text-center">
+            Don&apos;t have an account?{' '}
+            <Link route="account.create" className="text-blue-500 hover:underline">
+              Sign up
+            </Link>
+          </Text>
         </Card>
         {migrationUrl && (
           <Card
