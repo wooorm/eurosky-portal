@@ -118,10 +118,12 @@ export default class OAuthController {
   }
 
   async callback({ response, oauth, auth, session, logger }: HttpContext) {
+    const intendedUrl = session.pullIntendedUrl()
     const termsAccepted = session.pull('terms_accepted', 'invalid')
     const source = session.pull('source', 'login')
 
     session.clear()
+    session.regenerate()
 
     // If we're from signup, but don't have a valid termsAccepted date, we want
     // to cancel the flow:
@@ -142,9 +144,17 @@ export default class OAuthController {
           { did: result.user.did },
           { did: result.user.did, termsAcceptedAt: termsAcceptedOn }
         )
+      } else {
+        // Otherwise, just create the account without terms accepted:
+        await Account.firstOrCreate({ did: result.user.did }, { did: result.user.did })
       }
 
       await auth.use('web').login(result.user)
+
+      // We can't use .toIntendedRoute here because of the session.clear()
+      if (intendedUrl) {
+        return response.redirect().toPath(intendedUrl)
+      }
 
       return response.redirect().toRoute('dashboard.show')
     } catch (err) {
