@@ -23,7 +23,7 @@ export default function Login({ migrationUrl }: InertiaProps<{ migrationUrl?: st
             {({ errors, valid, isDirty }) => (
               <FieldGroup>
                 <Field>
-                  <Label htmlFor="input">Your Internet handle</Label>
+                  <Label htmlFor="input">Your Atmosphere handle</Label>
                   <Input
                     id="input"
                     name="input"
