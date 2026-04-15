@@ -130,7 +130,7 @@ export default class StorageController {
             const type = response.headers.get('content-type')
             // TODO: why is there no `content-length` for the `application/xml` file I have?
             const contentLength = response.headers.get('content-length')
-            const size = typeof contentLength === 'string' ? parseInt(contentLength, 10) : 0
+            const size = typeof contentLength === 'string' ? Number.parseInt(contentLength, 10) : 0
             await database.rawQuery(
               'INSERT OR IGNORE INTO "blob" ("cid", "createdAt", "creator", "mimeType", "size") VALUES (?,?,?,?,?)',
               [cid, new Date(0).toISOString(), did, type, size]

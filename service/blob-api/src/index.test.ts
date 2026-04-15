@@ -24,10 +24,10 @@ const rows: Array<[BlobRow, string]> = [
 ]
 
 test('blob-api', async function (t) {
-  await t.test('/health', async function (t) {
+  await t.test('/health', async function (st) {
     const route = '/health'
 
-    await t.test('should work', async function () {
+    await st.test('should work', async function () {
       const database = createDatabase()
 
       try {
@@ -41,10 +41,10 @@ test('blob-api', async function (t) {
     })
   })
 
-  await t.test(getStorageBreakdown, async function (t) {
+  await t.test(getStorageBreakdown, async function (st) {
     const route = getStorageBreakdown
 
-    await t.test('should fail w/o `authorization`', async function () {
+    await st.test('should fail w/o `authorization`', async function () {
       const database = createDatabase()
 
       try {
@@ -59,7 +59,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `authorization`', async function () {
+    await st.test('should fail w/ invalid `authorization`', async function () {
       const database = createDatabase()
 
       try {
@@ -76,7 +76,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `authorization` (scheme)', async function () {
+    await st.test('should fail w/ invalid `authorization` (scheme)', async function () {
       const database = createDatabase()
 
       try {
@@ -93,7 +93,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/o `did`', async function () {
+    await st.test('should fail w/o `did`', async function () {
       const database = createDatabase()
 
       try {
@@ -107,7 +107,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `did`', async function () {
+    await st.test('should fail w/ invalid `did`', async function () {
       const database = createDatabase()
 
       try {
@@ -122,7 +122,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should work w/ `did`', async function () {
+    await st.test('should work w/ `did`', async function () {
       const database = createDatabase()
 
       try {
@@ -144,10 +144,10 @@ test('blob-api', async function (t) {
     })
   })
 
-  await t.test(listBlobDetails, async function (t) {
+  await t.test(listBlobDetails, async function (st) {
     const route = listBlobDetails
 
-    await t.test('should fail w/o `authorization`', async function () {
+    await st.test('should fail w/o `authorization`', async function () {
       const database = createDatabase()
 
       try {
@@ -162,7 +162,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `authorization`', async function () {
+    await st.test('should fail w/ invalid `authorization`', async function () {
       const database = createDatabase()
 
       try {
@@ -179,7 +179,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `authorization` (scheme)', async function () {
+    await st.test('should fail w/ invalid `authorization` (scheme)', async function () {
       const database = createDatabase()
 
       try {
@@ -196,7 +196,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/o `did`', async function () {
+    await st.test('should fail w/o `did`', async function () {
       const database = createDatabase()
 
       try {
@@ -209,7 +209,7 @@ test('blob-api', async function (t) {
         database.close()
       }
     })
-    await t.test('should fail w/ invalid `did`', async function () {
+    await st.test('should fail w/ invalid `did`', async function () {
       const database = createDatabase()
 
       try {
@@ -224,7 +224,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should work w/ `did`', async function () {
+    await st.test('should work w/ `did`', async function () {
       const database = createDatabase()
 
       try {
@@ -239,7 +239,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `limit`', async function () {
+    await st.test('should fail w/ invalid `limit`', async function () {
       const database = createDatabase()
 
       try {
@@ -254,7 +254,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `limit` (too small)', async function () {
+    await st.test('should fail w/ invalid `limit` (too small)', async function () {
       const database = createDatabase()
 
       try {
@@ -269,7 +269,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `limit` (too big)', async function () {
+    await st.test('should fail w/ invalid `limit` (too big)', async function () {
       const database = createDatabase()
 
       try {
@@ -284,7 +284,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should work w/ `limit`', async function () {
+    await st.test('should work w/ `limit`', async function () {
       const database = createDatabase()
 
       try {
@@ -300,7 +300,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `category`', async function () {
+    await st.test('should fail w/ invalid `category`', async function () {
       const database = createDatabase()
 
       try {
@@ -315,7 +315,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should work w/ `category`', async function () {
+    await st.test('should work w/ `category`', async function () {
       const database = createDatabase()
 
       try {
@@ -330,7 +330,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ invalid `cursor`', async function () {
+    await st.test('should fail w/ invalid `cursor`', async function () {
       const database = createDatabase()
 
       try {
@@ -345,7 +345,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should work w/ `cursor`', async function () {
+    await st.test('should work w/ `cursor`', async function () {
       const database = createDatabase()
 
       try {
@@ -366,8 +366,8 @@ test('blob-api', async function (t) {
     })
   })
 
-  await t.test('*', async function (t) {
-    await t.test('should fail w/ an unknown route', async function () {
+  await t.test('*', async function (st) {
+    await st.test('should fail w/ an unknown route', async function () {
       const database = createDatabase()
 
       try {
@@ -381,7 +381,7 @@ test('blob-api', async function (t) {
       }
     })
 
-    await t.test('should fail w/ internal errors', async function () {
+    await st.test('should fail w/ internal errors', async function () {
       const error = new Error('Boom!')
       const database = {
         prepare(): never {
