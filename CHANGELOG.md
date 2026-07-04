@@ -1,5 +1,11 @@
 # eurosky-portal
 
+## 1.5.1
+
+### Patch Changes
+
+- [#168](https://github.com/eurosky-social/eurosky-portal/pull/168) [`4feeb74`](https://github.com/eurosky-social/eurosky-portal/commit/4feeb7480ca76cc94860df2344ddeaa65ac25a5a) Thanks [@ThisIsMissEm](https://github.com/ThisIsMissEm)! - Fix change password link, which became broken due to the same issue.
+
 ## 1.5.0
 
 ### Minor Changes
