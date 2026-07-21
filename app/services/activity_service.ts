@@ -9,6 +9,7 @@ import {
   type Activity,
   type SupportedCollection,
   isSupportedCollection,
+  supportedCollections,
   toPreview,
   toValue,
 } from '#utils/activity'
@@ -222,17 +223,18 @@ export class ActivityService {
     }
 
     const [count, rows] = await Promise.all([
-      baseQuery().count('* as count').firstOrFail(),
+      baseQuery()
+        .whereIn('collection', [...supportedCollections])
+        .count('* as count')
+        .firstOrFail(),
       recordsQuery,
     ])
 
     const first = rows.at(0)
 
     return {
-      activities: rows.map((row) => {
-        if (!isSupportedCollection(row.collection)) {
-          throw new Error(`Unknown collection \`${row.collection}\``)
-        }
+      activities: rows.flatMap((row) => {
+        if (!isSupportedCollection(row.collection)) return []
         return {
           cid: row.cid,
           collection: row.collection,
