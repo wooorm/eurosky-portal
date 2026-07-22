@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import cache from '@adonisjs/cache/services/main'
 import logger from '@adonisjs/core/services/logger'
 import { type AtUriString, Client, type DidString, XrpcResponseError } from '@atproto/lex'
+import BackfillJob from '#jobs/backfill_job'
 import * as lexicon from '#lexicons'
 import Account from '#models/account'
 import ActivityRecord from '#models/activity_record'
@@ -97,35 +98,6 @@ interface GetRecordsOptions {
 
 export class ActivityService {
   /**
-   * Backfills running.
-   */
-  #backfillActive = 0
-
-  /**
-   * Map of DIDs to the earliest time a new backfill can be tried.
-   */
-  #backfillAfter = new Map<string, DateTime>()
-
-  /**
-   * Max allowed at once; prevents problems on bursts at launch / wild
-   * pathological cases.
-   *
-   * The current choice, `200`, is a plausible value to start with.
-   * Should be revisited later.
-   */
-  #backfillMax = 200
-
-  /**
-   * Backfills waiting for a free slot.
-   */
-  #backfillQueue: Array<() => undefined> = []
-
-  /**
-   * Map of DIDs to tasks.
-   */
-  #backfills = new Map<string, Promise<void>>()
-
-  /**
    * Resolve PDS of a DID so records can be read publicly, w/o a user OAuth
    * session.
    */
@@ -151,31 +123,59 @@ export class ActivityService {
   }
 
   /**
-   * Backfill a user.
+   * Run a backfill; scheduled through {@linkcode dispatchBackfill}.
+   *
+   * @param did
+   *   DID.
+   * @returns
+   *   Promise that resolves when done.
+   */
+  async backfill(did: DidString): Promise<undefined> {
+    const { client } = await this.#clientFor(did)
+    const describeResponse = await client.xrpc(lexicon.com.atproto.repo.describeRepo.main, {
+      params: { repo: did },
+      signal: AbortSignal.timeout(5000),
+    })
+
+    const collections = describeResponse.body.collections.filter(isSupportedCollection)
+    const indexedAt = DateTime.now()
+    const concurrency = 5
+
+    while (collections.length > 0) {
+      const batch = collections.splice(0, concurrency)
+      await Promise.all(
+        batch.map(async (collection) => {
+          try {
+            await this.#syncCollection(client, did, collection, indexedAt)
+          } catch (err) {
+            logger.warn({ collection, did, err }, 'activity: cannot backfill collection')
+          }
+        })
+      )
+    }
+
+    await this.prune(did)
+
+    const account = await Account.findOrFail(did)
+    account.lastActivitySyncAt = indexedAt
+    await account.save()
+  }
+
+  /**
+   * Queue a backfill job.
    *
    * @param did
    *   DID.
    * @returns
    *   Nothing.
    */
-  backfill(did: DidString): undefined {
-    // Already running.
-    if (this.#backfills.has(did)) return
-
-    // Don’t hammer if failed.
-    const retry = this.#backfillAfter.get(did)
-    if (retry && retry > DateTime.now()) return
-    this.#backfillAfter.delete(did)
-
-    // Run.
-    const task = this.#syncPolitely(did)
+  dispatchBackfill(did: DidString): undefined {
+    BackfillJob.dispatch({ did })
+      .dedup({ id: did, ttl: '1m' })
+      .run()
       .catch((err: unknown) => {
-        logger.warn({ did, err }, 'activity: cannot backfill user')
-        this.#backfillAfter.set(did, DateTime.now().plus({ minutes: 1 }))
+        logger.warn({ did, err }, 'activity: cannot enqueue backfill')
       })
-      .finally(() => this.#backfills.delete(did))
-
-    this.#backfills.set(did, task)
   }
 
   /**
@@ -220,7 +220,7 @@ export class ActivityService {
 
     // Not done yet.
     if (!account.lastActivitySyncAt) {
-      this.backfill(did)
+      this.dispatchBackfill(did)
       return { state: 'syncing' }
     }
 
@@ -348,69 +348,6 @@ export class ActivityService {
     })
     if (!resolved) throw new Error(`Could not resolve PDS for \`${did}\``)
     return { client: new Client(resolved.pds), pds: resolved.pds }
-  }
-
-  /**
-   * @param did
-   *   DID.
-   * @returns
-   *   Promise that resolves when done.
-   */
-  async #syncPolitely(did: DidString): Promise<undefined> {
-    if (this.#backfillActive >= this.#backfillMax) {
-      await new Promise((resolve) => {
-        this.#backfillQueue.push(function () {
-          resolve(undefined)
-        })
-      })
-    }
-
-    this.#backfillActive++
-
-    try {
-      await this.#sync(did)
-    } finally {
-      this.#backfillActive--
-      const resolve = this.#backfillQueue.shift()
-      if (resolve) resolve()
-    }
-  }
-
-  /**
-   * @param did
-   *   DID.
-   * @returns
-   *   Promise that resolves when done.
-   */
-  async #sync(did: DidString) {
-    const { client } = await this.#clientFor(did)
-    const describeResponse = await client.xrpc(lexicon.com.atproto.repo.describeRepo.main, {
-      params: { repo: did },
-      signal: AbortSignal.timeout(5000),
-    })
-
-    const collections = describeResponse.body.collections.filter(isSupportedCollection)
-    const indexedAt = DateTime.now()
-    const concurrency = 5
-
-    while (collections.length > 0) {
-      const batch = collections.splice(0, concurrency)
-      await Promise.all(
-        batch.map(async (collection) => {
-          try {
-            await this.#syncCollection(client, did, collection, indexedAt)
-          } catch (err) {
-            logger.warn({ collection, did, err }, 'activity: cannot backfill collection')
-          }
-        })
-      )
-    }
-
-    await this.prune(did)
-
-    const account = await Account.findOrFail(did)
-    account.lastActivitySyncAt = indexedAt
-    await account.save()
   }
 
   /**
