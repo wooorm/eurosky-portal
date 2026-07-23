@@ -171,7 +171,7 @@ export class ActivityService {
    */
   dispatchBackfill(did: DidString): undefined {
     BackfillJob.dispatch({ did })
-      .dedup({ id: did, ttl: '1m' })
+      .dedup({ id: did })
       .run()
       .catch((err: unknown) => {
         logger.warn({ did, err }, 'activity: cannot enqueue backfill')
