@@ -6,11 +6,13 @@ export default defineConfig({
   locations: ['./app/jobs/**/*.{js,ts}'],
   worker: {
     /**
-     * Max backfills allowed at once; prevents problems on bursts at launch /
+     * Max jobs allowed at once; prevents problems on bursts at launch /
      * wild pathological cases.
      *
+     * For now, there’s only the backfill job.
      * The current choice `200` is a plausible value to start with.
      * Should be revisited later.
+     * At that point moving it to another process may be a good idea.
      */
     concurrency: 200,
   },
